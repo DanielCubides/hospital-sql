@@ -1,11 +1,30 @@
-﻿create procedure borrarTablas
+﻿create proc borrarTablas
 as
 drop table CITAS
 drop table CONSULTORIOS
 drop table PACIENTES
 drop table MEDICOS
 drop table EPS;
+drop table BITACORA;
+return
 
+create proc borrarProc
+as
+drop proc crearTablas;
+drop proc borrarTablas;
+return
+
+create proc borrarvistas
+as
+drop view medUNAlf;
+drop view medUNDoc;
+drop view medUNEsp;
+drop view pacAlf;
+drop view pacDoc;
+return
+
+create proc crearTablas
+as
 create table EPS(
 nombre varchar(45) not null unique,
 direccion varchar(45) not null,
@@ -14,7 +33,157 @@ regimen varchar(45) not null,
 web varchar(45) not null
 );
 
---EPS--
+create table MEDICOS( -- creacion tabla medicos
+nombre varchar(45) not null,
+cedula varchar(11) not null unique check( CAST(cedula as int) <= 99999999999),
+sueldo money null,
+direccion varchar(45) null,
+telefono numeric check( telefono >= 5710000000 and telefono <= 5799999999) not null,
+celular numeric not null check((celular >= 3000000000 and celular <= 3029999999) or (celular >= 3100000000 and celular <= 3129999999) or (celular >= 3150000000 and celular <= 3169999999)),
+fecha_nacimiento date not null,
+fecha_grado date default cast(getdate() as date) not null,
+fecha_ingreso date not null,
+especialidad varchar(45) not null check(especialidad = 'Medicina General' or especialidad = 'Ginecología' or especialidad = 'Traumatología' or especialidad = 'Pediatría'),
+check(fecha_nacimiento < fecha_grado and fecha_grado < fecha_ingreso and fecha_ingreso < CAST(getdate() as date) and (datediff(day,fecha_grado,cast(getdate() as date))) > (365*4)
+));
+
+create table PACIENTES(
+nombre varchar(30) not null,
+cedula varchar(11) not null unique check(CAST(cedula as int)<= 99999999999),
+direccion varchar(30) not null,
+telefono numeric not null check(telefono >=5710000000 and telefono <=5799999999 ),
+celular numeric not null check((celular >= 3000000000 and celular <= 3029999999) or (celular >= 3100000000 and celular <= 3129999999) or (celular >= 3150000000 and celular <= 3169999999)),
+fecha_nacimiento date,
+EPS varchar(45) references EPS(nombre)
+);
+
+create table CONSULTORIOS(
+especialidad varchar(45) not null check(especialidad = 'Medicina General' or especialidad = 'Ginecología' or especialidad = 'Traumatología' or especialidad = 'Pediatría'),
+consultorio varchar(4) unique not null,
+disponiblilidad int 
+);
+
+create table CITAS(
+cedulaMedico varchar(11) references MEDICOS(cedula),
+cedulaPaciente varchar(11) references PACIENTES(cedula),
+consultorio varchar(4) references CONSULTORIOS(consultorio),
+fecha date not null,
+check(cedulaMedico <> cedulaPaciente)
+);
+
+create table BITACORA(
+fechaOper date,
+usuarioOper varchar(30),
+maquinaOper varchar(30) null,
+tablaAfec varchar(30) null,
+operacion varchar (30)
+);
+
+return
+
+--sp_helptext borrarTablas;
+--sp_helptext crearTablas;
+
+--Ejecución de Procedimientos. 
+exec borrarProc;
+exec borrarVistas;
+exec borrartablas;
+exec crearTablas;
+
+
+
+--****************************CONSULTAS********************************
+--*****************************Vistas**********************************
+
+--Médicos de la Clínica "Universidad Nacional" ordenado en forma alfabética.
+create view medUNAlf
+as
+select TOP 99.99 PERCENT * 
+from MEDICOS
+order by nombre;
+
+--Médicos de la Clínica "Universidad Nacional" ordenado por Documento.
+create view medUNDoc
+as
+select TOP 99.99 PERCENT * 
+from MEDICOS
+order by cedula;
+
+--Médicos de la Clínica “Universidad Nacional”, ordenado por especialidad 
+--y en forma alfabética dentro de cada especialidad.
+create view medUNEsp
+as
+select TOP 99.99 PERCENT * 
+from MEDICOS
+order by especialidad,nombre;
+
+--Pacientes Ordenados en forma alfabética.
+create view pacAlf
+as
+select TOP 99.99 PERCENT * 
+from PACIENTES
+order by nombre;
+
+--Pacientes ordenados por documento.
+create view pacDoc
+as
+select TOP 99.99 PERCENT * 
+from PACIENTES
+order by cedula;
+
+-- Bitácora organizada por fecha y persona que hizo la operación.
+create view bitFecUser
+as
+select TOP 99.99 PERCENT * 
+from BITACORA
+order by fechaOper,usuarioOper;
+
+--Bitácora organizada por persona que hizo la operación y fecha.
+create view bitUserFec
+as
+select TOP 99.99 PERCENT * 
+from BITACORA
+order by usuarioOper,fechaOper;
+
+--Contenido de las tablas para control y auditoría.
+create view ctrl
+as
+select TOP 99.99 PERCENT * 
+from CONTROLB
+
+--Programar consultorios para asignar citas 
+--(es posible tener un consultorio como NO habilitado para consultas en un determinado día).
+
+select * from medUNAlf;
+select * from medUNDoc;
+select * from medUNEsp;
+select * from pacAlf;
+select * from pacDoc;
+select * from bitFecUser;
+select * from bitUserFec;
+select * from ctrl;
+
+
+create view RESUMEN_CITAS
+as
+select MEDICOS.nombre as medico, PACIENTES.nombre as paciente, consultorio, MEDICOS.especialidad as especialidad
+from CITAS, PACIENTES, MEDICOS
+where cedulaMedico = MEDICOS.cedula and cedulaPaciente = PACIENTES.cedula;
+
+create index INDICE_EPS ON EPS (nombre);
+
+--**************************** TRIGGERS*******************************
+create trigger registro on CITAS
+for insert
+as
+insert into BITACORA(fechaOper,usuarioOper,maquinaOper,tablaAfec,operacion)
+values (GETDATE(),user,null,null,'update');
+
+--select * from BITACORA;
+
+--Inserciones  EPS
+create proc insertEPS
+as
 
 INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Compensar EPS','Av. El Dorado No. 55B-48',5714285088,'www.compensar.com','Contributivo');
@@ -78,22 +247,11 @@ VALUES('Caprecom','Cra 69 No. 47-34',5712943333,'www.caprecom.gov.co','Subsidiad
 
 INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Colsubsidio','Cra. 17 No. 36-74',5712878710,'www.colsubsidio.com','Subsidiado');
+return
 
-create table MEDICOS( -- creacion tabla medicos
-nombre varchar(45) not null,
-cedula varchar(11) not null unique check( CAST(cedula as int) <= 99999999999),
-sueldo money null,
-direccion varchar(45) null,
-telefono numeric check( telefono >= 5710000000 and telefono <= 5799999999) not null,
-celular numeric not null check((celular >= 3000000000 and celular <= 3029999999) or (celular >= 3100000000 and celular <= 3129999999) or (celular >= 3150000000 and celular <= 3169999999)),
-fecha_nacimiento date not null,
-fecha_grado date default cast(getdate() as date) not null,
-fecha_ingreso date not null,
-especialidad varchar(45) not null check(especialidad = 'Medicina General' or especialidad = 'Ginecología' or especialidad = 'Traumatología' or especialidad = 'Pediatría'),
-check(fecha_nacimiento < fecha_grado and fecha_grado < fecha_ingreso and fecha_ingreso < CAST(getdate() as date) and (datediff(day,fecha_grado,cast(getdate() as date))) > (365*4)
-));
-
---Medicos--
+--Inserciones  MEDICOS
+create proc insertMED
+as
 INSERT INTO MEDICOS (nombre,cedula,sueldo,direccion,telefono,celular,fecha_nacimiento,fecha_grado,fecha_ingreso,especialidad)
 VALUES ('DORIS DUQUE PINEDA','22139246',1320000,'Cr 12 No. 123 - 54',5716537462,3002113456,'2/02/1945','11/12/2000','11/12/2003','Ginecología');
 
@@ -123,22 +281,11 @@ VALUES ('CLAUDIA PATRICIA VELEZ','3303796',3240000,'Cr 72 No. 23 - 34',571405746
 
 INSERT INTO MEDICOS (nombre,cedula,sueldo,direccion,telefono,celular,fecha_nacimiento,fecha_grado,fecha_ingreso,especialidad)
 VALUES ('JAIME DE JESUS MADRID','221878420',4250000,'Cr 28 No. 13 - 35',5716003462,3122673456,'3/11/1977','5/07/1996','1/12/2000','Medicina General');
+return
 
-
-
-create table PACIENTES(
-nombre varchar(30) not null,
-cedula varchar(11) not null unique check(CAST(cedula as int)<= 99999999999),
-direccion varchar(30) not null,
-telefono numeric not null check(telefono >=5710000000 and telefono <=5799999999 ),
-celular numeric not null check((celular >= 3000000000 and celular <= 3029999999) or (celular >= 3100000000 and celular <= 3129999999) or (celular >= 3150000000 and celular <= 3169999999)),
-fecha_nacimiento date,
-EPS varchar(45) references EPS(nombre)
-);
-
-
---pacientes
-
+--Inserciones  PACIENTES
+create proc insertPAC
+as
 INSERT INTO PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ('39168186', 'BLANCA CECILIA HENAO',5714325433,3104132567,'Cr 232 No.2-44','02/05/2001','Famisanar LTDA');
 
@@ -162,6 +309,7 @@ VALUES ('70120491', 'ELIECER MORALES',5718642180,3115548896,'Cr 33 No.32-35','02
 
 INSERT INTO PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ('83947325', 'RUBEN DARIO RESTREPO',5717634579,3014567777,'Cr 29 No.92-49','02/03/2001','Solsalud');
+
 INSERT INTO PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ('71383956', 'OSCAR DAVID RIOS',5716742765,3169500595,'Cr 13 No.32-11','02/03/2001','Solsalud');
 
@@ -170,14 +318,11 @@ VALUES ('43010404', 'MARTA CECILIA ESTRADA',5718876547,3154566565,'Cr 223 No.4-1
 
 INSERT INTO PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ('42970764', 'GLORIA ESTELLA OSPINA',5717452365,3108765445,'Cr 63 No.46-64','02/05/2001','Cruz Blanca');
+return
 
-
-create table CONSULTORIOS(
-especialidad varchar(45) not null check(especialidad = 'Medicina General' or especialidad = 'Ginecología' or especialidad = 'Traumatología' or especialidad = 'Pediatría'),
-consultorio varchar(4) unique not null
-);
-
-
+--Inserciones  CONSULTORIOS
+create proc insertCON
+as
 INSERT INTO CONSULTORIOS (especialidad, consultorio)
 VALUES ('Medicina General','G101');
 INSERT INTO CONSULTORIOS (especialidad, consultorio)
@@ -219,40 +364,20 @@ INSERT INTO CONSULTORIOS (especialidad, consultorio)
 VALUES('Pediatría','P201');
 INSERT INTO CONSULTORIOS (especialidad, consultorio)
 VALUES('Pediatría','P309');
+return
 
-create table CITAS(
-cedulaMedico varchar(11) references MEDICOS(cedula),
-cedulaPaciente varchar(11) references PACIENTES(cedula),
-consultorio varchar(4) references CONSULTORIOS(consultorio),
-fecha date not null,
-check(cedulaMedico <> cedulaPaciente)
-);
-
-create table BITACORA(
-fechaOper date,
-usuarioOper varchar(30),
-maquinaOper varchar(30) null,
-tablaAfec varchar(30) null,
-operacion varchar (30)
-);
-
+--Inserciones CITAS
+create proc insertCIT
+as
 INSERT INTO CITAS VALUES('3550661','39168186','G204','02/02/2013');
 INSERT INTO CITAS VALUES('3550661','39168186','G204','5/12/2013');
 INSERT INTO CITAS VALUES('22187842','39207688','G204','2/12/2013');
+return
 
-create view RESUMEN_CITAS
-as
-select MEDICOS.nombre as medico, PACIENTES.nombre as paciente, consultorio, MEDICOS.especialidad as especialidad
-from CITAS, PACIENTES, MEDICOS
-where cedulaMedico = MEDICOS.cedula and cedulaPaciente = PACIENTES.cedula;
+--procedimientos de inserción
 
-create index INDICE_EPS ON EPS (nombre);
-
---**************************** TRIGGERS*******************************
-create trigger registro on CITAS
-for insert
-as
-insert into BITACORA(fechaOper,usuarioOper,maquinaOper,tablaAfec,operacion)
-values (GETDATE(),user,null,null,'update');
-
---select * from BITACORA;
+exec insertEPS;
+exec insertMED;
+exec insertPAC
+exec insertCON;
+exec insertCIT;
