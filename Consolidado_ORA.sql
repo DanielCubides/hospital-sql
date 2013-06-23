@@ -80,8 +80,8 @@ consultorio varchar(4),
 fecha date not null,
 foreign key (cedulaMedico) references MEDICOS(cedula),
 foreign key (cedulaPaciente) references PACIENTES(cedula),
-foreign key (consultorio) references CONSULTORIOS(consultorio)
---check(cedulaMedico <> cedulaPaciente)
+foreign key (consultorio) references CONSULTORIOS(consultorio),
+primary check(cedulaMedico <> cedulaPaciente)
 );
 
 --Bitacora
@@ -231,3 +231,46 @@ BEGIN
 insert into CONTROLB(fechaOper,usuarioOper,maquinaOper,operacion)
 values (SYSTIMESTAMP,user,null,'UPDATE');
 END registro_Bitacora_Update;
+
+
+create or replace 
+trigger check_citas 
+BEFORE INSERT OR UPDATE ON CITAS
+FOR EACH ROW
+DECLARE
+naci date;
+especialidad_medico varchar(45);
+especialidad_consul varchar(45);
+nombre_medico varchar(45);
+nombre_paciente varchar(45);
+BEGIN
+SELECT fecha_nacimiento into naci  FROM Pacientes    WHERE cedula = :new.cedulaPaciente;
+SELECT especialidad into especialidad_medico  FROM Medicos    WHERE cedula = :new.cedulaMedico;
+SELECT especialidad into especialidad_consul  FROM Consultorios  WHERE consultorio = :new.consultorio;
+SELECT nombre into nombre_medico  FROM Medicos  WHERE cedula = :new.cedulaMedico;
+SELECT nombre into nombre_paciente FROM Pacientes  WHERE cedula = :new.cedulaPaciente;
+
+IF((especialidad_consul = 'Pediatría')and (TRUNC(SYSDATE) - naci > 3650))
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'Las citas de pediatría solo pueden ser solicitadas por menores de 10 años, el solicitante tiene: ' || 
+          to_char( (TRUNC(SYSDATE) - naci)/365) || ' años');
+  END IF;
+  
+IF(especialidad_medico != especialidad_consul)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'La especialidad del medico (' || to_char(especialidad_medico) || ') no conicide con el tipo de consultorio (' || 
+          to_char(especialidad_consul) || ').');
+  END IF;
+  
+  IF(:new.cedulaMedico = :new.cedulaPaciente)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'El medico (' || to_char(nombre_medico) || ') es el mismo paciente (' || 
+          to_char(nombre_paciente) || ').');
+  END IF;
+
+
+END check_citas;
+
