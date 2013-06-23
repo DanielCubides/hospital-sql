@@ -1,64 +1,64 @@
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Compensar EPS','Av. El Dorado No. 55B-48',5714285088,'www.compensar.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Famisanar LTDA','Calle 78 No. 13A-07',5716500200,'www.famisanar.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
-VALUES('Colmédica','Cra. 8 No. 38-31',5717568000,'www.colmedica.com','Contributivo');
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
+VALUES('Colmédica','Cra. 8 No. 38-31',5717568000,'www.Colmédica.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Humana Vivir','Clle 26 No 82–54',5717462040,'www.humanavivir.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
-VALUES('Salud Coop','Autopista Norte 94-10',5716511000,'www.saludcoopeps.com.co','Contributivo');
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
+VALUES('Salud Coop','Autopista Norte 94-10',5716511000,'www.Salud Coopeps.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Coomeva','Avenida 68 No. 17-12',5712184706,'www.eps.coomeva.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
-VALUES('Cruz Blanca','Autopista Norte No. 94-10',5716446100,'','Contributivo');
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
+VALUES('Cruz Blanca','Autopista Norte No. 94-10',5716446100,'www.cruzblanca.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Saludvida','Calle 40a No. 13-06',5713274141,'www.saludvidaeps.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Red Salud','Calle 100 No. 19-61 piso 8',5716353538,'www.redsaludeps.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Salud Colpatria','Avenida 19 No. 114-65',5714235757,'www.colpatria.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Salud Total','Calle 100 No. 61-18',5714854555,'www.saludtotal.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Solsalud','Avenida 39 No. 13-70',5712320117,'www.solsalud.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Sanitas','Calle 22B No. 66-46',5713759000,'www.colsanitas.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
-VALUES('Cafesalud','Autopista norte No. 91-Esquina',5716510777,'www.saludcoopeps.com.co','Contributivo');
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
+VALUES('Cafesalud','Autopista norte No. 91-Esquina',5716510777,'www.Salud Coopeps.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('SOS','Av Las Américas N° 23 N-55',5714898686,'www.sos.com.co','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Golden Group S.A.','Carrera 11A # 98–50 Piso 3',5716910953,'www.epsgoldengroup.com','Contributivo');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Unicajas','Calle 53 No. 10-39 piso 6',5713481068,'www.comfacundi.com.co','Subsidiado');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Ecoopsos','1 B No 13-02 Candelaria',5717164956,'www.ecoopsos.com.co','Subsidiado');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Caprecom','Cra 69 No. 47-34',5712943333,'www.caprecom.gov.co','Subsidiado');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Colsubsidio','Cra. 17 No. 36-74',5712878710,'www.colsubsidio.com','Subsidiado');
 
-INSERT INTO EPS (nombre,direccion,telefonos,web,regimen)
+INSERT INTO EPS (nombre,direccion,telefono,web,regimen)
 VALUES('Salud Condor','Calle 58a No. 34-38',5715481957,'www.saludcondor.com.co','Subsidiado');
 
 --Consultorios
@@ -272,13 +272,13 @@ insert into PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento
 values('16341023','camilo barba',5714596783,3162498372,'carrera 93 98 22','09/02/1994','Solsalud');
 
 insert into PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
-values('3634883','david roncancio',5712486573,3155642983,'carrera chile no 98 22','07/04/2001','Golden Group S.A');
+values('36348832','david roncancio',5712486573,3161642983,'carrera chile no 98 22','07/04/2001','Golden Group S.A.');
 
 insert into PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
-values('4632848','andrea gonzales',5712486975,3168594527,'carrera 223 no 7 23','10/09/2007','Unicajas ');
+values('4632848','andrea gonzales',5712486975,3168594527,'carrera 223 no 7 23','10/09/2007','Unicajas');
 
 insert into PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
-values('16342002','maria frias',5712468593,3112485922,'calle 67 no 53 23','04/07/1983','Humanavivir');
+values('16342002','maria frias',5712468593,3112485922,'calle 67 no 53 23','04/07/1983','Humana Vivir');
 
 insert into PACIENTES (cedula,nombre,telefono,celular,direccion,fecha_nacimiento,EPS)
 values('81633765','vanesa restrepo',5718642935,3116896452,'calle 45 no 30 67','06/12/2006','Caprecom');
@@ -334,16 +334,16 @@ INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento
 VALUES ( 'PABLO PEREZ HURTADO','80146881',5713294432,3156745612,'Cr 22 No.44-4','01/04/1980','Compensar EPS');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'PEDRO NAUSA RUIZ','20346881',5712219832,3116783562,'Cll 2 No.4-44','02/03/1985','Famisanar Ltda.');
+VALUES ( 'PEDRO NAUSA RUIZ','20346881',5712219832,3116783562,'Cll 2 No.4-44','02/03/1985','Famisanar LTDA');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'LUIS HURTADO HERNANDEZ','45676881',5712789322,3013453562,'Cr 67 No.45-41','03/03/1970','Colmedica');
+VALUES ( 'LUIS HURTADO HERNANDEZ','45676881',5712789322,3013453562,'Cr 67 No.45-41','03/03/1970','Colmédica');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ('ANDRES OVIEDO REYES','7034598',5712148922,3129802562,'cll 26 No.98-30','04/08/1978','Humana vivir');
+VALUES ('ANDRES OVIEDO REYES','7034598',5712148922,3129802562,'cll 26 No.98-30','04/08/1978','Humana Vivir');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'ANTONIO LOPEZ HERNANDEZ','23946881',5713456782,3123904562,'Cr 40 No.98-02','05/06/1985','Saludcoop');
+VALUES ( 'ANTONIO LOPEZ HERNANDEZ','23946881',5713456782,3123904562,'Cr 40 No.98-02','05/06/1985','Salud Coop');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ( 'PEDRO AVELLANEDA NAUSA','10258311',5715646782,3115798562,'Cr 90 No.45-28','01/09/1993','Caprecom');
@@ -352,16 +352,16 @@ INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento
 VALUES ( 'EDWIN MUÑOZ ALVAREZ','90345881',5712134232,3023124562,'Cr 104 No.8-25','06/04/1995','Compensar EPS');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'LORENA LEON RODRIGUEZ','67346881',5713988432,3013124562,'Cll 176 No.34-10','07/04/1990','Famisanar Ltda.');
+VALUES ( 'LORENA LEON RODRIGUEZ','67346881',5713988432,3013124562,'Cll 176 No.34-10','07/04/1990','Famisanar LTDA');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'DANIEL OVIEDO GARCIA','23846532',5718768432,3103124562,'Cr 85 No.7-44','10/08/1990','Colmedica');
+VALUES ( 'DANIEL OVIEDO GARCIA','23846532',5718768432,3103124562,'Cr 85 No.7-44','10/08/1990','Colmédica');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'PABLO HERNANDEZ GARCIA','80546823',5717238432,3113124562,'Cll 29 No.4-34','10/12/1987','Humana vivir');
+VALUES ( 'PABLO HERNANDEZ GARCIA','80546823',5717238432,3113124562,'Cll 29 No.4-34','10/12/1987','Humana Vivir');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'NATALIA RODRIGUEZ LOPEZ','90126881',5712138432,3123124562,'Cr 2 No.4-44','08/09/1990','Saludcoop');
+VALUES ( 'NATALIA RODRIGUEZ LOPEZ','90126881',5712138432,3123124562,'Cr 2 No.4-44','08/09/1990','Salud Coop');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ( 'JORGE MENDOZA RUIZ','78346881',5713298432,3014564562,'Cll 108 No.23-04','10/09/1983','Coomeva');
@@ -370,13 +370,13 @@ INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento
 VALUES ( 'JUAN RUBIO LARA','89345382',5712398432,3119844562,'Cr 97 No.44-50','09/09/1997','Compensar EPS');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'CLAUDIA BENITEZ PENUELA','89234567',5712133209,3020124562,'Cll 26 No.32-34','01/12/1999','Famisanar Ltda.');
+VALUES ( 'CLAUDIA BENITEZ PENUELA','89234567',5712133209,3020124562,'Cll 26 No.32-34','01/12/1999','Famisanar LTDA');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'PEDRO MUNOS CHAVEZ','21903459',5713120432,3129832562,'Cr 35 No.49-9','10/07/1992','Colmedica');
+VALUES ( 'PEDRO MUNOS CHAVEZ','21903459',5713120432,3129832562,'Cr 35 No.49-9','10/07/1992','Colmédica');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
-VALUES ( 'LAURA TOVAR HERNANDEZ','24893578',5712392432,3123914562,'Cll 40 No.9-44','09/04/1994','Humana vivir');
+VALUES ( 'LAURA TOVAR HERNANDEZ','24893578',5712392432,3123914562,'Cll 40 No.9-44','09/04/1994','Humana Vivir');
 
 INSERT INTO PACIENTES (nombre,cedula,telefono,celular,direccion,fecha_nacimiento,EPS)
 VALUES ( 'LUCIA MORENO ALVAREZ','28394854',5712134782,3018354562,'Cr 90 No.45-28','11/04/1997','Sanitas');
